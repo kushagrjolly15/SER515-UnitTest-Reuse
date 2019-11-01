@@ -13,6 +13,7 @@ import java.util.ArrayList;
  *          Update to Java 8
  */
 
+@SuppressWarnings("serial")
 public class SolutionList extends ArrayList<Solution> {
 
 	public SolutionList() {

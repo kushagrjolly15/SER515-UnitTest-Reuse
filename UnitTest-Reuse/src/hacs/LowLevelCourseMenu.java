@@ -1,33 +1,16 @@
 package hacs;
 
-/**
- * Title:        HACS
- * Description:
- * Copyright:    Copyright (c) 2002
- * Company:      msu
- * @author Zhang ji Zhu Wei
- * @version 1.0
- */
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class HighLevelCourseMenu extends CourseMenu {
+@SuppressWarnings("serial")
+public class LowLevelCourseMenu extends CourseMenu {
 
-	/*
-	 * JButton AssignmentAddButton = new JButton(); JRadioButton OptionRadio = new
-	 * JRadioButton(); JComboBox OptionCombo = new JComboBox(); JButton
-	 * OptionViewButton = new JButton(); JButton OptionAddButton = new JButton();
-	 */
-
-	public HighLevelCourseMenu() {
+	public LowLevelCourseMenu() {
 	}
 
 	void ShowMenu(Course theCourse) {
-		ShowViewButtons();
-		ShowRadios();
-		ShowComboxes();
-		show();
+		setVisible(true);
 	}
 
 	void ShowAddButtons() {
@@ -48,7 +31,7 @@ public class HighLevelCourseMenu extends CourseMenu {
 		AssignmentRadiao.setText("Assignment");
 		AssignmentRadiao.setBounds(new Rectangle(21, 55, 103, 26));
 		this.getContentPane().add(AssignmentRadiao, null);
-		OptionRadio.setText("HighLevel Presentation");
+		OptionRadio.setText("LowLevelExperiment");
 		OptionRadio.setBounds(new Rectangle(21, 128, 103, 26));
 		this.getContentPane().add(OptionRadio, null);
 	}

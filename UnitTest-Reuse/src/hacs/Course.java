@@ -2,6 +2,7 @@ package hacs;
 
 import java.util.*;
 
+
 /**
  * Title:        HACS
  * Description:  CSE870 Homework 3:  Implementing Design Patterns
@@ -18,15 +19,13 @@ public class Course {
   String CourseName;
   public ArrayList<Assignment> assignmentList=new ArrayList<Assignment>();
   int NumOfAss;
-  int CourseLevel;
+  public enum COURSE_LEVEL{ HIGH_LEVEL, LOW_LEVEL}
+  COURSE_LEVEL courseLevel;
 
 
-  public Course(String strCourse, int theLevel) {
+  public Course(String strCourse, COURSE_LEVEL theLevel) {
     this.CourseName = strCourse;
-
-   //0 HighLeve presentation    1  LowLevel Experiment
-    this.CourseLevel = theLevel;
-   // this.AssList = NULL;
+    courseLevel = theLevel;
     this.NumOfAss = 0;
   }
   

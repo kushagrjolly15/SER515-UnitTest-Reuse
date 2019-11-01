@@ -2,6 +2,9 @@ package hacs;
 
 import java.util.*;
 
+import hacs.Course.COURSE_LEVEL;
+import hacs.UserInfoItem.USER_TYPE;
+
 /**
  * Title: HACS Description: CSE870 Homework 3: Implementing Design Patterns
  * Copyright: Copyright (c) 2002 Company: Department of Computer Science and
@@ -12,7 +15,7 @@ import java.util.*;
  */
 
 abstract public class Person {
-	int type = 0; // type=0 : student, type=1 instructor
+	USER_TYPE type; // type=0 : student, type=1 instructor
 	String UserName;
 	ClassCourseList CourseList;
 	CourseMenu theCourseMenu;
@@ -23,7 +26,7 @@ abstract public class Person {
 		CourseList = new ClassCourseList();
 	}
 
-	abstract public CourseMenu CreateCourseMenu(Course theCourse, int theLevel);
+	abstract public CourseMenu CreateCourseMenu(Course theCourse, COURSE_LEVEL theLevel);
 
 	public void showAddButton() {
 		theCourseMenu.ShowAddButtons();
@@ -42,7 +45,7 @@ abstract public class Person {
 	}
 
 	public void show() {
-		theCourseMenu.show();
+		theCourseMenu.setVisible(true);
 	}
 
 	public boolean ifLogout() {
@@ -53,7 +56,7 @@ abstract public class Person {
 	public boolean ShowMenu() {
 		// create a iterator for the assignment list
 //    Iterator theIter=new ListIterator(CurrentCourse.AssList );
-		Iterator theIter = CurrentCourse.assignmentList.iterator();
+		Iterator<Assignment> theIter = CurrentCourse.assignmentList.iterator();
 		theCourseMenu.theCourse = CurrentCourse;
 		Assignment theAssignment;
 		while (theIter.hasNext()) {

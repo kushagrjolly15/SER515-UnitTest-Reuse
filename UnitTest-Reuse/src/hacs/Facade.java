@@ -2,6 +2,9 @@ package hacs;
 
 import java.io.*;
 
+import hacs.Course.COURSE_LEVEL;
+import hacs.UserInfoItem.USER_TYPE;
+
 /**
  * Title: HACS Description: Copyright: Copyright (c) 2002 Company: msu
  * 
@@ -14,11 +17,11 @@ import java.io.*;
  */
 
 public class Facade {
-	public int UserType;
-	private Course theSelecteCourse = null;
-	private int nCourseLevel = 0;
-	ClassCourseList theCourseList;
-	Person thePerson;
+	public int userType;
+	private Course selectedCourse = null;
+	private COURSE_LEVEL courseLevel;
+	ClassCourseList courseList;
+	Person user;
 
 	public Facade() {
 	}
@@ -26,8 +29,8 @@ public class Facade {
 	static public boolean Login(UserInfoItem userinfoItem) {
 		Login login = new Login();
 		login.setModal(true);
-		login.show();
-		userinfoItem.strUserName = login.GetUserName();
+		login.setVisible(true);
+		userinfoItem.username = login.GetUserName();
 		userinfoItem.UserType = login.GetUserType();
 		return login.isExit();
 	}
@@ -44,14 +47,14 @@ public class Facade {
 
 	void AddAssignment(Course theCourse) {
 		AssignmentMenu theAssignmentMenu;
-		if (thePerson.type == 0)/// student
+		if (user.type == USER_TYPE.STUDENT)/// student
 		{
 			theAssignmentMenu = new StudentAssignmentMenu();
 		} else {
 			theAssignmentMenu = new InstructorAssignmentMenu();
 		}
 		Assignment theAssignment = new Assignment();
-		theAssignmentMenu.ShowMenu(theAssignment, thePerson);
+		theAssignmentMenu.ShowMenu(theAssignment, user);
 		theCourse.AddAssignment(theAssignment);
 	}
 
@@ -64,14 +67,12 @@ public class Facade {
 	 */
 	void ViewAssignment(Assignment theAssignment) {
 		AssignmentMenu theAssignmentMenu;
-		if (thePerson.type == 0)/// student
-		{
+		if (user.type == USER_TYPE.STUDENT) {
 			theAssignmentMenu = new StudentAssignmentMenu();
 		} else {
 			theAssignmentMenu = new InstructorAssignmentMenu();
 		}
-
-		theAssignmentMenu.ShowMenu(theAssignment, thePerson);
+		theAssignmentMenu.ShowMenu(theAssignment, user);
 	}
 
 //functions for InstructorAssignmentMenu
@@ -104,26 +105,26 @@ public class Facade {
 //////////
 	void Remind() {
 		Reminder theReminder = new Reminder();
-		theReminder.showReminder(thePerson.GetCourseList());
+		theReminder.showReminder(user.GetCourseList());
 	}
 
 	void CreateUser(UserInfoItem userinfoitem) {
-		if (userinfoitem.UserType == UserInfoItem.USER_TYPE.Student) /// student
+		if (userinfoitem.UserType == USER_TYPE.STUDENT) /// student
 		{
-			thePerson = new Student();
+			user = new Student();
 		} else /// instructor
 		{
-			thePerson = new Instructor();
+			user = new Instructor();
 		}
-		thePerson.UserName = userinfoitem.strUserName;
+		user.UserName = userinfoitem.username;
 	}
 
 	/*
 	 * create a course list and intitialize it with the file CourseInfo.txt
 	 */
 	void CreateCourseList() {
-		theCourseList = new ClassCourseList();
-		theCourseList.InitializeFromFile("CourseInfo.txt");
+		courseList = new ClassCourseList();
+		courseList.InitializeFromFile("CourseInfo.txt");
 	}
 
 	/*
@@ -132,25 +133,25 @@ public class Facade {
 	 * Matched course object to the new create user Facade.thePerson.CourseList
 	 */
 	void AttachCourseToUser() {
+		String aline, strUserName, strCourseName;
 		BufferedReader file;
 		try {
 			file = new BufferedReader(new FileReader("UserCourse.txt"));
-			String aline, strUserName, strCourseName;
 			while ((aline = file.readLine()) != null) // not the EOF
 			{
 				strUserName = GetUserName(aline);
 				strCourseName = GetCourseName(aline);
-				if (strUserName.compareTo(thePerson.UserName) == 0) /// the UserName mateches
+				if (strUserName.compareTo(user.UserName) == 0) 
 				{
-					theSelecteCourse = FindCourseByCourseName(strCourseName);
-					if (theSelecteCourse != null) /// Find the Course in the CourseList--->attach
+					selectedCourse = FindCourseByCourseName(strCourseName);
+					if (selectedCourse != null) 
 					{
-						thePerson.AddCourse(theSelecteCourse);
+						user.AddCourse(selectedCourse);
 					}
 				}
 			}
 		} catch (Exception ee) {
-			;
+			ee.printStackTrace();
 		}
 	}
 
@@ -178,9 +179,9 @@ public class Facade {
 	 */
 	public boolean SelectCourse() {
 		CourseSelectDlg theDlg = new CourseSelectDlg();
-		theSelecteCourse = theDlg.ShowDlg(thePerson.CourseList);
-		thePerson.CurrentCourse = theSelecteCourse;
-		nCourseLevel = theDlg.nCourseLevel;
+		selectedCourse = theDlg.ShowDlg(user.CourseList);
+		user.CurrentCourse = selectedCourse;
+		courseLevel = theDlg.nCourseLevel;
 		return theDlg.isLogout();
 	}
 
@@ -191,8 +192,8 @@ public class Facade {
 	 */
 
 	public boolean CourseOperation() {
-		thePerson.CreateCourseMenu(theSelecteCourse, nCourseLevel);
-		return thePerson.ShowMenu();//// 0: logout 1 select an other course
+		user.CreateCourseMenu(selectedCourse, courseLevel);
+		return user.ShowMenu();//// 0: logout 1 select an other course
 	}
 
 	/*
@@ -201,8 +202,8 @@ public class Facade {
 	 * pointer of the Course if not fine, return null;
 	 */
 	private Course FindCourseByCourseName(String strCourseName) {
-		CourseIterator Iterator = new CourseIterator(theCourseList);
-		return (Course) Iterator.next(strCourseName);
+		CourseIterator ct = new CourseIterator(courseList);
+		return (Course) ct.next(strCourseName);
 	}
 
 }

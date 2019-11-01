@@ -3,7 +3,6 @@ package hacs;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.*;
 import java.text.DateFormat;
 
 /**
@@ -15,13 +14,14 @@ import java.text.DateFormat;
  * @version 1.0
  */
 
+@SuppressWarnings("serial")
 public class InstructorAssignmentMenu extends AssignmentMenu
 {
 ////  class AssignmentMenu
-  private boolean bSubmit=false;
+  //private boolean bSubmit=false;
   private Solution theSolution;
   private Assignment theAssignment;
-  JComboBox CombSolutionList = new JComboBox();
+  JComboBox<Solution> CombSolutionList = new JComboBox<Solution>();
 ////////////////////////
 
 
@@ -104,14 +104,14 @@ public class InstructorAssignmentMenu extends AssignmentMenu
   public void ShowMenu(Assignment assignment, Person person)
   {
     theAssignment=assignment;
-    Solution theSolution;
+    //Solution theSolution;
     tbAssignmentName.setText(theAssignment.AssName );
 
     DateFormat theDateFormat=DateFormat.getDateInstance(DateFormat.SHORT );
     tbDueDate.setText(theDateFormat.format(theAssignment.DueDate));
     tbSuggestedSolution.setText(theAssignment.SuggestSolution.SolutionFileName );
     refreshSolutionList();
-    show();
+    setVisible(true);
   }
 
   void buttonClose_actionPerformed(ActionEvent e)
@@ -123,7 +123,7 @@ public class InstructorAssignmentMenu extends AssignmentMenu
       theAssignment.DueDate=tempDateFormat.parse(tbDueDate.getText() );
     }catch (Exception ee){};
     theAssignment.SuggestSolution.SolutionFileName =tbSuggestedSolution.getText() ;
-    hide();
+    setVisible(false);
   }
 
   void buttonGrade_actionPerformed(ActionEvent e)

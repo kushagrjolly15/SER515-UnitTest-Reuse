@@ -11,6 +11,7 @@ import java.awt.event.*;
  * @version 1.0
  */
 
+@SuppressWarnings("serial")
 public class SolutionGradingDlg extends JDialog {
 	Solution theSolution;
 	JLabel jLabel1 = new JLabel();
@@ -51,12 +52,12 @@ public class SolutionGradingDlg extends JDialog {
 		theSolution = solution;
 		tfGrad.setText("" + theSolution.getGradeInt());
 		labelSolutionFileName.setText(theSolution.SolutionFileName);
-		show();
+		setVisible(true);
 	}
 
 	void buttonOK_actionPerformed(ActionEvent e) {
 		theSolution.theGrade = Integer.parseInt(tfGrad.getText());
-		hide();
+		setVisible(false);
 	}
 
 }

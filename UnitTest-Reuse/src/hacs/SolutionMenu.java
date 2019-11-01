@@ -17,13 +17,14 @@ import java.io.*;
  * Update to Java 8
  */
 
+@SuppressWarnings("serial")
 public class SolutionMenu extends JDialog {
 
 	public SolutionMenu() {
 	}
 
 	void ShowMenu(Solution theSolution) {
-		show();
+		setVisible(true);
 	}
 	
 }

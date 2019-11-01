@@ -1,6 +1,9 @@
 package hacs;
 
 import javax.swing.*;
+
+import hacs.Course.COURSE_LEVEL;
+
 import java.awt.*;
 import java.awt.event.*;
 
@@ -11,13 +14,13 @@ import java.awt.event.*;
  * @version 1.0
  */
 
+@SuppressWarnings("serial")
 public class CourseSelectDlg extends JDialog {
-	// 0 HighLevel presentation 1 LowLevel Experiment
 	ClassCourseList theCourseList;
 	Course SelectedCourse;
-	int nCourseLevel = 0;
+	COURSE_LEVEL nCourseLevel;
 	boolean m_bLogout = false;
-	JComboBox CourseNameCom = new JComboBox();
+	JComboBox<Course> CourseNameCom = new JComboBox<Course>();
 	JRadioButton HighLevelRadio = new JRadioButton();
 	JRadioButton LowLevelRadio = new JRadioButton();
 	JLabel jLabel1 = new JLabel();
@@ -76,7 +79,6 @@ public class CourseSelectDlg extends JDialog {
 	 */
 
 	public Course ShowDlg(ClassCourseList courseList) {
-
 		theCourseList = courseList;
 		CourseIterator theIterator = new CourseIterator(theCourseList);
 		Course theCourse;
@@ -84,17 +86,17 @@ public class CourseSelectDlg extends JDialog {
 		{
 			CourseNameCom.addItem(theCourse);
 		}
-		show();
+		setVisible(true);
 		return SelectedCourse;
 	}
 
 	void OKButton_actionPerformed(ActionEvent e) {
 		SelectedCourse = (Course) CourseNameCom.getSelectedItem();
 		if (HighLevelRadio.isSelected())
-			nCourseLevel = 0; // highlevel course: 0
+			nCourseLevel = COURSE_LEVEL.HIGH_LEVEL; // highlevel course: 0
 		else
-			nCourseLevel = 1; // lowlevel course: 1
-		hide();
+			nCourseLevel = COURSE_LEVEL.LOW_LEVEL; // lowlevel course: 1
+		setVisible(false);
 	}
 
 	public boolean isLogout() {
@@ -103,6 +105,6 @@ public class CourseSelectDlg extends JDialog {
 
 	void buttonLogout_actionPerformed(ActionEvent e) {
 		m_bLogout = true;
-		hide();
+		setVisible(false);
 	}
 }

@@ -3,7 +3,6 @@ package hacs;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.*;
 import java.util.*;
 
 /**
@@ -13,6 +12,7 @@ import java.util.*;
  * @version 1.0
  */
 
+@SuppressWarnings("serial")
 public class StudentAssignmentMenu extends AssignmentMenu {
 
 ////  class AssignmentMenu
@@ -113,7 +113,7 @@ public class StudentAssignmentMenu extends AssignmentMenu {
 		lDueDate.setText(theAssignment.DueDate.toString());
 		lSuggestedSolution.setText(theAssignment.SuggestSolution.SolutionFileName);
 
-		show();
+		setVisible(true);
 
 		if (boolSubmit == true) {
 			if (theSolution == null) {
@@ -128,12 +128,12 @@ public class StudentAssignmentMenu extends AssignmentMenu {
 
 	void bSubmit_actionPerformed(ActionEvent e) {
 		boolSubmit = true;
-		hide();
+		setVisible(false);
 	}
 
 	void bCancel_actionPerformed(ActionEvent e) {
 		boolSubmit = false;
-		hide();
+		setVisible(false);
 	}
 
 }

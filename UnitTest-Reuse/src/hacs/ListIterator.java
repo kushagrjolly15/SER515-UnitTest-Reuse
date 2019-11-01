@@ -11,14 +11,14 @@ import java.util.*;
  * @version 2.0 use <e> notation
  */
 
-public class ListIterator implements Iterator<Object> {
-	ArrayList<Object> theList;
+public class ListIterator<T> implements Iterator<T> {
+	ArrayList<T> theList;
 	int CurrentNumber = -1;
 
 	public ListIterator() {
 	}
 
-	public ListIterator(ArrayList<Object> list) {
+	public ListIterator(ArrayList<T> list) {
 		theList = list;
 	}
 
@@ -29,7 +29,7 @@ public class ListIterator implements Iterator<Object> {
 			return true;
 	}
 
-	public Object next() {
+	public T next() {
 		if (hasNext() == true) {
 			CurrentNumber++;
 			return theList.get(CurrentNumber);

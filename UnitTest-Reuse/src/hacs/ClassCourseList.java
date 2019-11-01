@@ -1,6 +1,9 @@
 package hacs;
 
 import java.util.ArrayList;
+
+import hacs.Course.COURSE_LEVEL;
+
 import java.io.*;
 
 /**
@@ -12,25 +15,24 @@ import java.io.*;
  * @version 2.0 update to Java 8
  */
 
+@SuppressWarnings("serial")
 public class ClassCourseList extends ArrayList<Course> {
 
 	public ClassCourseList() {
 	}
 
 	//// initialize the list by reading from the file.
-	void InitializeFromFile(String theFileName) {
+	void InitializeFromFile(String fileName) {
+		BufferedReader file;
 		try {
-			BufferedReader file;
-			String strCourseName = null;
+			String course_nm = null;
 			file = new BufferedReader(new FileReader("CourseInfo.txt"));
-			while ((strCourseName = file.readLine()) != null) {
-				Course theCourse;
-				theCourse = new Course(strCourseName, 0);
-//      theCourse.CourseName= strCourseName;
-				add(theCourse);
+			while ((course_nm = file.readLine()) != null) {
+				Course course = new Course(course_nm, COURSE_LEVEL.HIGH_LEVEL);
+				add(course);
 			}
 		} catch (Exception ee) {
-			;
+			ee.printStackTrace();
 		}
 	}
 

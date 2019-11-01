@@ -33,7 +33,7 @@ public class ReminderVisitor extends NodeVisitor {
 	}
 
 	public void visitFacade(Facade facade) {
-		CourseIterator courseList = new CourseIterator(facade.theCourseList);
+		CourseIterator courseList = new CourseIterator(facade.courseList);
 		while (courseList.hasNext()) {
 			Course course = (Course) courseList.next();
 			course.accept(this);

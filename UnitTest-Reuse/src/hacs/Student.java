@@ -1,5 +1,8 @@
 package hacs;
 
+import hacs.Course.COURSE_LEVEL;
+import hacs.UserInfoItem.USER_TYPE;
+
 /**
  * Title: HACS Description: CSE870 Homework 3: Implementing Design Patterns
  * Copyright: Copyright (c) 2002 Company: Department of Computer Science and
@@ -12,15 +15,15 @@ package hacs;
 public class Student extends Person {
 
 	public Student() {
-		type = 0; // type=0: student
+		type = USER_TYPE.STUDENT; 
 	}
 
-	public CourseMenu CreateCourseMenu(Course theCourse, int theLevel) {
+	public CourseMenu CreateCourseMenu(Course theCourse, COURSE_LEVEL theLevel) {
 
-		if (theLevel == 0) // 0: Highlevel defined in CourseSelectDlg.
+		if (theLevel == COURSE_LEVEL.HIGH_LEVEL) 
 		{
 			theCourseMenu = new HighLevelCourseMenu();
-		} else // 1: LowLevel
+		} else 
 		{
 			theCourseMenu = new LowLevelCourseMenu();
 		}

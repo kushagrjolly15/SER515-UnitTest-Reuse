@@ -19,6 +19,7 @@ import java.io.*;
  *          Update to Java 8
  */
 
+@SuppressWarnings("serial")
 public class Login extends JDialog {
 
 	boolean m_bExit = false;
@@ -31,9 +32,8 @@ public class Login extends JDialog {
 	JRadioButton StudentRadio = new JRadioButton();
 	JRadioButton InstructorRadio = new JRadioButton();
 	ButtonGroup buttonGroup1 = new ButtonGroup();
-////// Attributes Added By me
 	private String UserBox = null;
-	private USER_TYPE UserType = USER_TYPE.Student; // default to Student
+	private USER_TYPE UserType = USER_TYPE.STUDENT;
 
 	public Login() {
 		try {
@@ -86,21 +86,20 @@ public class Login extends JDialog {
 	void loginButton_actionPerformed(ActionEvent e) {
 		BufferedReader file;
 		m_bExit = false;
-		System.out.println("login clicked");
+		UserBox = UserNameText.getText();
+		String PasswordBox = new String(PasswordText.getPassword());
+		String LoginName = null;
+		String aline = null, UserName = null, Password = null;
 		try {
-			if (StudentRadio.isSelected() == true)//// student
+			if (StudentRadio.isSelected() == true)
 			{
-				UserType = USER_TYPE.Student; /// 0 for student
+				UserType = USER_TYPE.STUDENT; 
 				file = new BufferedReader(new FileReader("StuInfo.txt"));
-			} else// instructor
+			} else
 			{
-				UserType = USER_TYPE.Instructor; // 1 for instructor
+				UserType = USER_TYPE.INSTUCTOR; 
 				file = new BufferedReader(new FileReader("InsInfor.txt"));
 			}
-			UserBox = UserNameText.getText();
-			String PasswordBox = new String(PasswordText.getPassword());
-			String LoginName = null;
-			String aline = null, UserName = null, Password = null;
 			while ((aline = file.readLine()) != null) {
 				UserName = GetUserName(aline);
 				Password = GetPassword(aline);
@@ -108,10 +107,10 @@ public class Login extends JDialog {
 					LoginName = UserName;
 			}
 			if (LoginName != null) {
-				this.hide();
+				this.setVisible(false);
 			}
 		} catch (Exception ee) {
-			;
+			ee.printStackTrace();
 		}
 
 	}
@@ -148,6 +147,6 @@ public class Login extends JDialog {
 
 	void buttonExit_actionPerformed(ActionEvent e) {
 		m_bExit = true;
-		hide();
+		setVisible(false);
 	}
 }
