@@ -15,33 +15,33 @@ import hacs.UserInfoItem.USER_TYPE;
  */
 
 abstract public class Person {
-	USER_TYPE type; // type=0 : student, type=1 instructor
-	String UserName;
-	ClassCourseList CourseList;
+	private USER_TYPE type; // type=0 : student, type=1 instructor
+	private String userName;
+	ClassCourseList courseList;
 	CourseMenu theCourseMenu;
-	Course CurrentCourse;
-	Assignment CurrentAssignment;
+	Course currentCourse;
+	Assignment currentAssignment;
 
 	public Person() {
-		CourseList = new ClassCourseList();
+		courseList = new ClassCourseList();
 	}
 
-	abstract public CourseMenu CreateCourseMenu(Course theCourse, COURSE_LEVEL theLevel);
+	abstract public CourseMenu createCourseMenu(Course theCourse, COURSE_LEVEL theLevel);
 
 	public void showAddButton() {
-		theCourseMenu.ShowAddButtons();
+		theCourseMenu.showAddButtons();
 	}
 
 	public void showViewButtons() {
-		theCourseMenu.ShowViewButtons();
+		theCourseMenu.showViewButtons();
 	}
 
 	public void showComboxes() {
-		theCourseMenu.ShowComboxes();
+		theCourseMenu.showComboxes();
 	}
 
 	public void showRadios() {
-		theCourseMenu.ShowRadios();
+		theCourseMenu.showRadios();
 	}
 
 	public void show() {
@@ -53,24 +53,40 @@ abstract public class Person {
 	}
 
 	// show the assignment list
-	public boolean ShowMenu() {
+	public boolean showMenu() {
 		// create a iterator for the assignment list
 //    Iterator theIter=new ListIterator(CurrentCourse.AssList );
-		Iterator<Assignment> theIter = CurrentCourse.assignmentList.iterator();
-		theCourseMenu.theCourse = CurrentCourse;
+		Iterator<Assignment> theIter = currentCourse.assignmentList.iterator();
+		theCourseMenu.theCourse = currentCourse;
 		Assignment theAssignment;
 		while (theIter.hasNext()) {
 			theAssignment = (Assignment) theIter.next();
-			theCourseMenu.AssignmentCombox.addItem(theAssignment);
+			theCourseMenu.assignmentCombox.addItem(theAssignment);
 		}
 		return false;
 	}
 
-	public ClassCourseList GetCourseList() {
-		return CourseList;
+	public ClassCourseList getCourseList() {
+		return courseList;
 	}
 
-	public void AddCourse(Course theCourse) {
-		CourseList.add(theCourse);
+	public void addCourse(Course theCourse) {
+		courseList.add(theCourse);
+	}
+
+	public USER_TYPE getType() {
+		return type;
+	}
+
+	public void setType(USER_TYPE type) {
+		this.type = type;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 }

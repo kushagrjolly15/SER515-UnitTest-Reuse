@@ -11,7 +11,7 @@ import javax.swing.*;
  * @author mjfindler
  * @version 2.0
  * 
- * Update to Java 8
+ *          Update to Java 8
  */
 
 @SuppressWarnings("serial")
@@ -20,8 +20,8 @@ public class SolutionMenu extends JDialog {
 	public SolutionMenu() {
 	}
 
-	void ShowMenu(Solution theSolution) {
+	void showMenu(Solution theSolution) {
 		setVisible(true);
 	}
-	
+
 }

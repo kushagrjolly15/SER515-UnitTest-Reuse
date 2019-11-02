@@ -14,7 +14,6 @@ import hacs.UserInfoItem.USER_TYPE;
  */
 
 public class Hacs {
-	static boolean exit_flg=false;
 	static Facade facade = new Facade();
 
 	// default constructor
@@ -22,19 +21,30 @@ public class Hacs {
 	}
 
 	public static void main(String[] args) {
+		
+		
 		UserInfoItem userinfoitem = new UserInfoItem();
-		facade.CreateCourseList();
-		exit_flg = Facade.Login(userinfoitem);
-		facade.CreateUser(userinfoitem);
-		facade.AttachCourseToUser();
-		if (userinfoitem.UserType == USER_TYPE.STUDENT)
-			facade.Remind();
-		boolean bLogout = false;
-		while (!bLogout) {
-			bLogout = facade.SelectCourse();
-			if (bLogout)
-				break;
-			bLogout = facade.CourseOperation();
-		}
+		facade.createCourseList();
+		while(true)
+	    {
+	      boolean bExit=false;
+	      bExit=facade.login(userinfoitem);
+	        if(bExit)
+	          break;
+	  //    userinfoitem.strUserName = "Inst1";
+	  //    userinfoitem.UserType = 1;
+	        facade.createUser(userinfoitem);
+	        facade.attachCourseToUser();
+	      if(userinfoitem.getUserType()==USER_TYPE.STUDENT)///if is a student remind him of the due date
+	    	  facade.remind();
+	      boolean bLogout=false;
+	      while(!bLogout)
+	      {
+	        bLogout=facade.selectCourse();
+	          if(bLogout)
+	            break;
+	        bLogout=facade.courseOperation();
+	      }
+	    }
 	}
 }

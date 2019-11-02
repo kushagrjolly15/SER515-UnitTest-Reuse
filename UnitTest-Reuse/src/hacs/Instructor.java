@@ -11,23 +11,22 @@ import hacs.UserInfoItem.USER_TYPE;
  */
 
 public class Instructor extends Person {
+	
 	public Instructor() {
-		type = USER_TYPE.INSTUCTOR;
+		setType(USER_TYPE.INSTUCTOR);
 	}
 
-	public CourseMenu CreateCourseMenu(Course theCourse, COURSE_LEVEL theLevel) {
-		if (theLevel == COURSE_LEVEL.HIGH_LEVEL)
-		{
+	public CourseMenu createCourseMenu(Course theCourse, COURSE_LEVEL theLevel) {
+		if (theLevel == COURSE_LEVEL.HIGH_LEVEL) {
 			theCourseMenu = new HighLevelCourseMenu();
-		} else
-		{
+		} else {
 			theCourseMenu = new LowLevelCourseMenu();
 		}
 		return theCourseMenu;
 	}
 
-	public boolean ShowMenu() {
-		super.ShowMenu();
+	public boolean showMenu() {
+		super.showMenu();
 		showAddButton();
 		showViewButtons();
 		showComboxes();

@@ -15,24 +15,22 @@ import hacs.UserInfoItem.USER_TYPE;
 public class Student extends Person {
 
 	public Student() {
-		type = USER_TYPE.STUDENT; 
+		setType(USER_TYPE.STUDENT);
 	}
 
-	public CourseMenu CreateCourseMenu(Course theCourse, COURSE_LEVEL theLevel) {
+	public CourseMenu createCourseMenu(Course theCourse, COURSE_LEVEL theLevel) {
 
-		if (theLevel == COURSE_LEVEL.HIGH_LEVEL) 
-		{
+		if (theLevel == COURSE_LEVEL.HIGH_LEVEL) {
 			theCourseMenu = new HighLevelCourseMenu();
-		} else 
-		{
+		} else {
 			theCourseMenu = new LowLevelCourseMenu();
 		}
 		return theCourseMenu;
 	}
 
 	@Override
-	public boolean ShowMenu() {
-		super.ShowMenu();
+	public boolean showMenu() {
+		super.showMenu();
 		showViewButtons();
 		showComboxes();
 		showRadios();

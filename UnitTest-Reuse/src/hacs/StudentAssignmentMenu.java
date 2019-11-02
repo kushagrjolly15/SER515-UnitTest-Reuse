@@ -96,32 +96,32 @@ public class StudentAssignmentMenu extends AssignmentMenu {
 	 * check if the student has already had a solution or not. if not , create a new
 	 * solution for the student. after showing the solution attatch the soluiton;
 	 */
-	public void ShowMenu(Assignment assignment, Person thePerson) {
+	public void showMenu(Assignment assignment, Person thePerson) {
 		theAssignment = assignment;
-		SolutionIterator theIter = theAssignment.GetSolutionIterator();
-		theSolution = (Solution) theIter.next(thePerson.UserName);
+		SolutionIterator theIter = theAssignment.getSolutionIterator();
+		theSolution = (Solution) theIter.next(thePerson.getUserName());
 		if (theSolution == null) {
 			tbSolution.setText("");
 			lGrade.setText("-1");
 		} else {
-			tbSolution.setText(theSolution.SolutionFileName);
+			tbSolution.setText(theSolution.getSolutionFileName());
 			lGrade.setText(theSolution.getGradeString());
 
 		}
 
-		lAssignmentName.setText(theAssignment.AssName);
-		lDueDate.setText(theAssignment.DueDate.toString());
-		lSuggestedSolution.setText(theAssignment.SuggestSolution.SolutionFileName);
+		lAssignmentName.setText(theAssignment.getAssName());
+		lDueDate.setText(theAssignment.getDueDate().toString());
+		lSuggestedSolution.setText(theAssignment.suggestSolution.getSolutionFileName());
 
 		setVisible(true);
 
 		if (boolSubmit == true) {
 			if (theSolution == null) {
 				theSolution = new Solution();
-				theAssignment.AddSolution(theSolution);
+				theAssignment.addSolution(theSolution);
 			}
-			theSolution.theAuthor = thePerson.UserName;
-			theSolution.SolutionFileName = tbSolution.getText();
+			theSolution.setTheAuthor(thePerson.getUserName());
+			theSolution.setSolutionFileName(tbSolution.getText());
 			theSolution.theSubmitData = new Date();
 		}
 	}

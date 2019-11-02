@@ -10,89 +10,118 @@ package hacs;
  */
 
 import java.util.*;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.text.DateFormat;
 
 public class Assignment {
 
-  protected String AssName;
-  protected String strAssignmentFilename;
-  protected Date DueDate=new Date();
-  protected String AssSpec;
-  protected SolutionList theSolutionList=new SolutionList();
-  protected Solution SuggestSolution=new Solution();
+	private String assName;
+	private String strAssignmentFilename;
+	private Date dueDate = new Date();
+	private String assSpec;
+	SolutionList theSolutionList = new SolutionList();
+	Solution suggestSolution = new Solution();
 
+	public Assignment() {
+	}
 
+	public void setDueDate(Date theDueDate) {
+		this.dueDate = theDueDate;
+	}
 
-  public Assignment() {
-  }
+	public void setAssSpec(String theSpec) {
+		this.assSpec = theSpec;
+	}
 
-  public void SetDueDate(Date theDueDate){
-    this.DueDate = theDueDate;
-  }
+	public String getAssSpec() {
+		return this.assSpec;
+	}
 
-  public void SetAssSpec(String theSpec){
-    this.AssSpec = theSpec;
-  }
+	public boolean isOverDue() {
+		Date today;
+		today = new Date();
+		if (today.after(this.dueDate)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
-  public boolean IsOverDue(){
-    Date today;
-    today = new Date();
-    if (today.after(this.DueDate)) {
-      return true;
-    }
-    else {
-      return false;
-    }
-  }
+	public Solution addSolution() {
+		Solution mySolution = new Solution();
+		return mySolution;
+	}
 
-  public Solution AddSolution(){
-    Solution mySolution = new Solution();
-    return mySolution;
-  }
+	//// add the theSolution to the Solutionlist
+	public void addSolution(Solution theSolution) {
+		theSolutionList.add(theSolution);
+		submitSolution(theSolution);
+	}
 
-  ////add the theSolution to the Solutionlist
-  public void AddSolution(Solution theSolution)
-  {
-    theSolutionList.add(theSolution);
-  }
+	public void submitSolution(Solution theSolution) {
+		// make a file
+		BufferedWriter file;
+		try {
+			file = new BufferedWriter(new FileWriter("sol.txt"));
+			file.write(theSolution.getSolutionFileName());
+		} catch (Exception ee) {
+			ee.printStackTrace();
+		}
+	}
 
-  public void SubmitSolution(){
-  }
+	public SolutionList getSolutionList() {
+		return theSolutionList;
+	}
 
-  public void getSolutionList(){
-  }
+	/*
+	 * return the solution of the give name
+	 */
+	public Solution getSolution(String studentname) {
+		SolutionIterator Iterator = (SolutionIterator) theSolutionList.iterator();
+		return (Solution) Iterator.next(studentname);
+	}
 
-  /* return the solution of the give name
-  */
-  public Solution getSolution(String studentname)
-  {
-    SolutionIterator Iterator=(SolutionIterator)theSolutionList.iterator();
-    return (Solution)Iterator.next(studentname);
-  }
+	public Solution getSugSolution() {
+		return suggestSolution;
+	}
 
-  public Solution getSugSolution(){
-    return SuggestSolution;
-  }
+	public SolutionIterator getSolutionIterator() {
+		SolutionIterator theSolutionIterator = new SolutionIterator(theSolutionList);
+		return theSolutionIterator;
+	}
 
-  public SolutionIterator GetSolutionIterator()
-  {
-    SolutionIterator theSolutionIterator=new SolutionIterator(theSolutionList);
-    return theSolutionIterator;
-  }
+	public String toString() {
+		return assName;
+	}
 
-  public String toString()
-  {
-    return AssName;
-  }
+	public String getDueDateString() {
+		DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.SHORT);
+		return dateFormat.format(dueDate);
+	}
 
-  public String getDueDateString()
-  {
-    DateFormat dateFormat=DateFormat.getDateInstance(DateFormat.SHORT);
-    return  dateFormat.format(DueDate);
-  }
+	public void accept(NodeVisitor visitor) {
+		visitor.visitAssignment(this);
+	}
 
-  public void accept(NodeVisitor visitor)
-  {
-    visitor.visitAssignment(this);
-  }
+	public String getAssName() {
+		return assName;
+	}
+
+	public void setAssName(String assName) {
+		this.assName = assName;
+	}
+
+	public String getStrAssignmentFilename() {
+		return strAssignmentFilename;
+	}
+
+	public void setStrAssignmentFilename(String strAssignmentFilename) {
+		this.strAssignmentFilename = strAssignmentFilename;
+	}
+
+	public Date getDueDate() {
+		return dueDate;
+	}
 }

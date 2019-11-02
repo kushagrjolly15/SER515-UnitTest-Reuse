@@ -12,15 +12,15 @@ import java.util.*;
  * @author mjfindler
  * @version 2.0
  * 
- * update to Java 8
+ *          update to Java 8
  */
 
 public class Solution {
-	String theAuthor = "";
-	String SolutionFileName = "";
+	private String theAuthor = "";
+	private String solutionFileName = "";
 	Date theSubmitData = new Date();
-	int theGrade;
-	boolean reported = false;
+	private int theGrade = 0;
+	private boolean reported = false;
 
 	public Solution() {
 	}
@@ -28,7 +28,7 @@ public class Solution {
 	@Override
 	public String toString() {
 		String string;
-		string = theAuthor + "  " + SolutionFileName + " Grade=" + getGradeInt() + "  ";
+		string = theAuthor + "  " + solutionFileName + " Grade=" + getGradeInt() + "  ";
 		if (isReported())
 			string += "reported";
 		else
@@ -37,14 +37,14 @@ public class Solution {
 		return (string);
 	}
 
-	String getGradeString() {
+	public String getGradeString() {
 		if (isReported())
 			return "" + theGrade;
 		else
 			return "-1";
 	}
 
-	int getGradeInt() {
+	public int getGradeInt() {
 		return theGrade;
 	}
 
@@ -55,4 +55,37 @@ public class Solution {
 	public boolean isReported() {
 		return reported;
 	}
+
+	public String getTheAuthor() {
+		return theAuthor;
+	}
+
+	public void setTheAuthor(String theAuthor) {
+		this.theAuthor = theAuthor;
+	}
+
+	public String getSolutionFileName() {
+		return solutionFileName;
+	}
+
+	public void setSolutionFileName(String solutionFileName) {
+		this.solutionFileName = solutionFileName;
+	}
+
+	public Date getTheSubmitData() {
+		return theSubmitData;
+	}
+
+	public void setTheSubmitData(Date theSubmitData) {
+		this.theSubmitData = theSubmitData;
+	}
+
+	public int getTheGrade() {
+		return theGrade;
+	}
+
+	public void setTheGrade(int theGrade) {
+		this.theGrade = theGrade;
+	}
+
 }
