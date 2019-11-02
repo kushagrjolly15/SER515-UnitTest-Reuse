@@ -22,7 +22,6 @@ class TestSolution {
 		sol.setReported(false);
 		String name = "null   Grade=0  not reported";
 		String courseName = sol.toString();
-		System.out.println(courseName);
 		assertEquals(name, courseName);
 	}
 	

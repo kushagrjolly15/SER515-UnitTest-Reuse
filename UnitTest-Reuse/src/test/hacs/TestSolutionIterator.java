@@ -29,7 +29,6 @@ class TestSolutionIterator {
 	@Test
 	void testNext() {
 		SolutionIterator iter = new SolutionIterator(solutionlist);
-		System.out.print(solutionlist.get(0).getTheAuthor());
 		assertEquals(iter.next("null"), null);
 	}
 

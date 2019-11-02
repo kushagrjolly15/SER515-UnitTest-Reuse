@@ -20,6 +20,7 @@ class TestListIterator {
 	@Test
 	void testNext() {
 		ListIterator<String> list= new ListIterator<>(st);
+		list.next();
 		list.remove();
 		Assert.assertEquals(list.next(), null);	
 	}
